@@ -1,0 +1,11 @@
+.GoodsListFrame
+{
+    border: double gray 3px;
+    padding: 3px 7px;
+    background-color: #f0f0f0;
+}
+
+.GoodsListText
+{
+    font-style: italic;
+}
