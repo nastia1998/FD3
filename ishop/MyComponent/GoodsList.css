@@ -19,11 +19,6 @@
     text-decoration: underline;
 }
 
-.GoodsListTable a:visited
-{
-    text-decoration: underline;
-}
-
 .GoodsListPhoto
 {
     max-width: 40%;
