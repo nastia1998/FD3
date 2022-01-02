@@ -1,10 +1,22 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import "./Good.css";
 
 export class Good extends Component {
-  state = {
-    selectedRow: -1,
-  };
+  constructor(props) {
+    super(props);
+
+    let goodsList = [];
+
+    this.props.goodsList.forEach((good) => {
+      goodsList.push(good);
+    });
+
+    this.state = {
+      selectedRow: -1,
+      goodsList: goodsList,
+    };
+  }
 
   onRowClick = (rowId) => {
     if (rowId !== undefined) {
@@ -12,14 +24,24 @@ export class Good extends Component {
     }
   };
 
+  handleDelete = (rowId) => {
+    let deleteRow = window.confirm("Do you really want to delete the good");
+    if (deleteRow) {
+      let filteredGoodsList = this.props.goodsList.filter(
+        (good) => good.inventoryNumber !== rowId
+      );
+      this.setState({ goodsList: filteredGoodsList });
+    }
+  };
+
   render() {
     return (
       <tbody>
-        {this.props.goodsList.map((good) => {
+        {this.state.goodsList.map((good) => {
           return (
             <tr
               key={good.inventoryNumber}
-              onClick={(e) => this.onRowClick(good.inventoryNumber)}
+              onClick={() => this.onRowClick(good.inventoryNumber)}
               className={
                 this.state.selectedRow === good.inventoryNumber
                   ? "rowSelected"
@@ -31,7 +53,11 @@ export class Good extends Component {
               <td>{good.url}</td>
               <td>{good.quantity}</td>
               <td>
-                <input type="button" value="Delete" />
+                <input
+                  type="button"
+                  value="Delete"
+                  onClick={() => this.handleDelete(good.inventoryNumber)}
+                />
               </td>
             </tr>
           );
@@ -40,3 +66,7 @@ export class Good extends Component {
     );
   }
 }
+
+Good.propTypes = {
+  goodsList: PropTypes.array,
+};
