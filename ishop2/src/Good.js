@@ -31,5 +31,11 @@ export default class Good extends Component {
 }
 
 Good.propTypes = {
-  goodInfo: PropTypes.object,
+  goodInfo: PropTypes.shape({
+    inventoryNumber: PropTypes.number,
+    name: PropTypes.string,
+    quantity: PropTypes.number,
+  }),
+  handleSelectItem: PropTypes.func,
+  handleRemoveItem: PropTypes.func,
 };
