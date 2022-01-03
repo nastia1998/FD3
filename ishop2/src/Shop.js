@@ -1,6 +1,6 @@
 import React from "react";
 import "./Shop.css";
-import { Good } from "./Good.js";
+import Good from "./Good.js";
 
 export default class Shop extends React.Component {
   constructor(props) {
@@ -32,8 +32,36 @@ export default class Shop extends React.Component {
 
     this.state = {
       goodsList: goodsList,
+      selectedRowId: 0,
     };
   }
+
+  handleSelectItem = (e) => {
+    let selectedRowId = e.target.parentElement.getAttribute(
+      "data-inventory-number"
+    );
+    this.setState({ selectedRowId: selectedRowId });
+  };
+
+  handleRemoveItem = (e) => {
+    let parentElement = e.target.parentElement;
+
+    if (!parentElement) return;
+
+    let selectedRowId = parentElement.parentElement.getAttribute(
+      "data-inventory-number"
+    );
+
+    if (selectedRowId) {
+      let deleteRow = window.confirm("Do you really want to delete the good?");
+      if (deleteRow) {
+        let filteredGoodsList = this.state.goodsList.filter(
+          (good) => good.inventoryNumber !== +selectedRowId
+        );
+        this.setState({ goodsList: filteredGoodsList });
+      }
+    }
+  };
 
   render() {
     return (
@@ -48,7 +76,19 @@ export default class Shop extends React.Component {
               <th>Control</th>
             </tr>
           </thead>
-          <Good goodsList={this.state.goodsList} />
+          <tbody>
+            {this.state.goodsList.map((good) => {
+              return (
+                <Good
+                  key={good.inventoryNumber}
+                  goodInfo={good}
+                  selectedRowId={this.state.selectedRowId}
+                  handleSelectItem={this.handleSelectItem}
+                  handleRemoveItem={this.handleRemoveItem}
+                />
+              );
+            })}
+          </tbody>
         </table>
       </div>
     );
