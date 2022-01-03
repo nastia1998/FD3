@@ -3,13 +3,30 @@ import PropTypes from "prop-types";
 import "./Good.css";
 
 export default class Good extends Component {
+  handleSelectItem = () => {
+    this.props.setSelectedRowId(this.props.goodInfo.inventoryNumber);
+  };
+
+  handleRemoveItem = () => {
+    let selectedRowId = this.props.goodInfo.inventoryNumber;
+
+    if (selectedRowId) {
+      let deleteRow = window.confirm("Do you really want to delete the good?");
+      if (deleteRow) {
+        let filteredGoodsList = this.state.goodsList.filter(
+          (good) => good.inventoryNumber !== +selectedRowId
+        );
+        this.setState({ goodsList: filteredGoodsList });
+      }
+    }
+  };
+
   render() {
     return (
       <tr
-        data-inventory-number={this.props.goodInfo.inventoryNumber}
-        onClick={this.props.handleSelectItem}
+        onClick={this.handleSelectItem}
         className={
-          +this.props.selectedRowId === this.props.goodInfo.inventoryNumber
+          +this.props.selectedRowId === +this.props.goodInfo.inventoryNumber
             ? "rowSelected"
             : "rowInitial"
         }
@@ -19,11 +36,7 @@ export default class Good extends Component {
         <td>{this.props.goodInfo.url}</td>
         <td>{this.props.goodInfo.quantity}</td>
         <td>
-          <input
-            type="button"
-            value="Delete"
-            onClick={this.props.handleRemoveItem}
-          />
+          <input type="button" value="Delete" onClick={this.handleRemoveItem} />
         </td>
       </tr>
     );
@@ -32,10 +45,9 @@ export default class Good extends Component {
 
 Good.propTypes = {
   goodInfo: PropTypes.shape({
-    inventoryNumber: PropTypes.number,
+    inventoryNumber: PropTypes.number.isRequired,
     name: PropTypes.string,
     quantity: PropTypes.number,
   }),
-  handleSelectItem: PropTypes.func,
-  handleRemoveItem: PropTypes.func,
+  setSelectedRowId: PropTypes.func,
 };
