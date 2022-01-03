@@ -1,6 +1,7 @@
 import React from "react";
 import "./Shop.css";
 import Good from "./Good.js";
+import PropTypes from "prop-types";
 
 export default class Shop extends React.Component {
   state = {
@@ -50,3 +51,7 @@ export default class Shop extends React.Component {
     );
   }
 }
+
+Good.propTypes = {
+  goodsList: PropTypes.object,
+};

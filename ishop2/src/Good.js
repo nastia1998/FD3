@@ -40,4 +40,5 @@ Good.propTypes = {
     quantity: PropTypes.number,
   }),
   setSelectedRowId: PropTypes.func,
+  handleDeleteRow: PropTypes.func,
 };
