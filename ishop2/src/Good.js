@@ -8,17 +8,7 @@ export default class Good extends Component {
   };
 
   handleRemoveItem = () => {
-    let selectedRowId = this.props.goodInfo.inventoryNumber;
-
-    if (selectedRowId) {
-      let deleteRow = window.confirm("Do you really want to delete the good?");
-      if (deleteRow) {
-        let filteredGoodsList = this.state.goodsList.filter(
-          (good) => good.inventoryNumber !== +selectedRowId
-        );
-        this.setState({ goodsList: filteredGoodsList });
-      }
-    }
+    this.props.handleDeleteRow(this.props.goodInfo.inventoryNumber);
   };
 
   render() {

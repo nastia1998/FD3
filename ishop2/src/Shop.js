@@ -5,10 +5,18 @@ import Good from "./Good.js";
 export default class Shop extends React.Component {
   state = {
     selectedRowId: 0,
+    goodsList: this.props.goodsList,
   };
 
   setSelectedRowId = (selectedRowId) => {
     this.setState({ selectedRowId });
+  };
+
+  handleDeleteRow = (rowId) => {
+    let filteredList = this.state.goodsList.filter(
+      (good) => good.inventoryNumber !== +rowId
+    );
+    this.setState({ goodsList: filteredList });
   };
 
   render() {
@@ -25,13 +33,14 @@ export default class Shop extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {this.props.goodsList.map((good) => {
+            {this.state.goodsList.map((good) => {
               return (
                 <Good
                   key={good.inventoryNumber}
                   goodInfo={good}
                   selectedRowId={this.state.selectedRowId}
                   setSelectedRowId={this.setSelectedRowId}
+                  handleDeleteRow={this.handleDeleteRow}
                 />
               );
             })}
