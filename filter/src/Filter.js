@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 class Filter extends React.Component {
   constructor(props) {
@@ -96,5 +97,9 @@ class Filter extends React.Component {
     );
   }
 }
+
+Filter.propTypes = {
+  programmingLaunguagesList: PropTypes.array,
+};
 
 export default Filter;
