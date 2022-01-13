@@ -1,7 +1,7 @@
 import "./Filter.css";
 import React from "react";
 
-export default class Filter extends React.Component {
+class Filter extends React.Component {
   constructor(props) {
     super(props);
 
@@ -97,3 +97,5 @@ export default class Filter extends React.Component {
     );
   }
 }
+
+export default Filter;
