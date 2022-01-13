@@ -5,58 +5,54 @@ export default class Filter extends React.Component {
   constructor(props) {
     super(props);
 
-    let languagesList = [];
-
-    this.props.programmingLaunguagesList.forEach((language) => {
-      languagesList.push(language);
-    });
-
     this.state = {
-      isChecked: false,
-      programmingLaunguagesList: languagesList,
+      isSorted: false,
+      programmingLaunguagesList: this.props.programmingLaunguagesList.slice(),
+      filterText: "",
     };
   }
 
-  handleClick = () => {
-    let languagesList = [];
-
-    this.props.programmingLaunguagesList.forEach((language) => {
-      languagesList.push(language);
-    });
-
-    this.setState(
-      {
-        isChecked: !this.state.isChecked,
-      },
-      () => {
-        if (this.state.isChecked) {
-          this.setState({
-            programmingLaunguagesList: languagesList.sort(),
-          });
-        } else {
-          this.setState({
-            programmingLaunguagesList: this.props.programmingLaunguagesList,
-          });
-        }
-      }
-    );
+  handleFilter = () => {
+    if (this.state.filterText) {
+      let filteredList = this.props.programmingLaunguagesList.filter((word) =>
+        word.toLowerCase().includes(this.state.filterText.toLowerCase())
+      );
+      this.setState(
+        { programmingLaunguagesList: filteredList },
+        this.handleSorte
+      );
+    } else {
+      this.setState(
+        {
+          programmingLaunguagesList:
+            this.props.programmingLaunguagesList.slice(),
+        },
+        this.handleSorte
+      );
+    }
   };
 
-  handleChange = (e) => {
-    let languagesList = [];
+  handleSorte = () => {
+    if (this.state.isSorted) {
+      this.setState({
+        programmingLaunguagesList: this.state.programmingLaunguagesList.sort(),
+      });
+    }
+  };
 
-    this.props.programmingLaunguagesList.forEach((language) => {
-      languagesList.push(language);
-    });
+  handleDisplayList = (e) => {
+    this.setState({ filterText: e.target.value }, this.handleFilter);
+  };
 
-    languagesList.sort();
+  handleSortChange = (e) => {
+    this.setState({ isSorted: e.target.checked }, this.handleFilter);
+  };
 
-    const resultList = languagesList.filter((word) =>
-      word.toLowerCase().includes(e.target.value)
-    );
-
+  handleReset = () => {
     this.setState({
-      programmingLaunguagesList: resultList,
+      isSorted: false,
+      programmingLaunguagesList: this.props.programmingLaunguagesList.slice(),
+      filterText: "",
     });
   };
 
@@ -66,11 +62,15 @@ export default class Filter extends React.Component {
         <div>
           <input
             type="checkbox"
-            defaultChecked={this.state.isChecked}
-            onClick={this.handleClick}
+            checked={this.state.isSorted}
+            onChange={this.handleSortChange}
           />
-          <input type="text" onChange={this.handleChange} />
-          <input type="button" value="Reset" />
+          <input
+            type="text"
+            value={this.state.filterText}
+            onChange={this.handleDisplayList}
+          />
+          <input type="button" onClick={this.handleReset} value="Reset" />
         </div>
         <div
           style={{
