@@ -18,10 +18,7 @@ class Filter extends React.Component {
         word.toLowerCase().includes(this.state.filterText.toLowerCase())
       );
       this.state.isSorted && filteredList.sort();
-      this.setState(
-        { programmingLaunguagesList: filteredList },
-        this.handleSort
-      );
+      this.setState({ programmingLaunguagesList: filteredList });
     } else {
       let resultList = this.props.programmingLaunguagesList.slice();
       this.state.isSorted && resultList.sort();
