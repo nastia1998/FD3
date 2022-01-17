@@ -2,6 +2,7 @@ import React from "react";
 import "./Shop.css";
 import Good from "./Good.js";
 import GoodCardDisplay from "./GoodCardDisplay";
+import GoodCardEdit from "./GoodCardEdit";
 import PropTypes from "prop-types";
 
 export default class Shop extends React.Component {
@@ -9,12 +10,14 @@ export default class Shop extends React.Component {
     selectedRowId: 0,
     goodsList: this.props.goodsList,
     selectedGood: {},
+    handleMode: 0, // 0 - nothing, 1 - display, 2 - edit/new
   };
 
   setSelectedRowId = (selectedRowId) => {
     this.setState(
       {
         selectedRowId,
+        handleMode: 1,
       },
       () => {
         let good = this.state.goodsList.find((good) => {
@@ -29,10 +32,17 @@ export default class Shop extends React.Component {
     let filteredList = this.state.goodsList.filter(
       (good) => good.inventoryNumber !== +rowId
     );
-    this.setState({ goodsList: filteredList });
+    this.setState({ goodsList: filteredList, handleMode: 0 });
   };
 
-  handleProductAdd = () => {};
+  handleEditRow = () => {
+    console.log("handle Edit row");
+    this.setState({ handleMode: 2 });
+  };
+
+  handleProductAdd = () => {
+    this.setState({ handleMode: 2 });
+  };
 
   render() {
     return (
@@ -56,6 +66,7 @@ export default class Shop extends React.Component {
                   selectedRowId={this.state.selectedRowId}
                   setSelectedRowId={this.setSelectedRowId}
                   handleDeleteRow={this.handleDeleteRow}
+                  handleEditRow={this.handleEditRow}
                 />
               );
             })}
@@ -66,9 +77,10 @@ export default class Shop extends React.Component {
           value="New product"
           onClick={this.handleProductAdd}
         />
-        {this.state.selectedRowId > 0 && (
+        {this.state.handleMode === 1 && (
           <GoodCardDisplay goodDetails={this.state.selectedGood} />
         )}
+        {this.state.handleMode === 2 && <GoodCardEdit />}
       </div>
     );
   }

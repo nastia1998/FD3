@@ -7,8 +7,14 @@ export default class Good extends Component {
     this.props.setSelectedRowId(this.props.goodInfo.inventoryNumber);
   };
 
-  handleRemoveItem = () => {
+  handleRemoveItem = (e) => {
+    e.stopPropagation();
     this.props.handleDeleteRow(this.props.goodInfo.inventoryNumber);
+  };
+
+  handleEditItem = (e) => {
+    e.stopPropagation();
+    this.props.handleEditRow();
   };
 
   render() {
@@ -26,6 +32,7 @@ export default class Good extends Component {
         <td>{this.props.goodInfo.url}</td>
         <td>{this.props.goodInfo.quantity}</td>
         <td>
+          <input type="button" value="Edit" onClick={this.handleEditItem} />
           <input type="button" value="Delete" onClick={this.handleRemoveItem} />
         </td>
       </tr>
