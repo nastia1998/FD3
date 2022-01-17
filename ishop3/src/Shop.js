@@ -1,16 +1,28 @@
 import React from "react";
 import "./Shop.css";
 import Good from "./Good.js";
+import GoodCardDisplay from "./GoodCardDisplay";
 import PropTypes from "prop-types";
 
 export default class Shop extends React.Component {
   state = {
     selectedRowId: 0,
     goodsList: this.props.goodsList,
+    selectedGood: {},
   };
 
   setSelectedRowId = (selectedRowId) => {
-    this.setState({ selectedRowId });
+    this.setState(
+      {
+        selectedRowId,
+      },
+      () => {
+        let good = this.state.goodsList.find((good) => {
+          return good.inventoryNumber === this.state.selectedRowId;
+        });
+        this.setState({ selectedGood: good });
+      }
+    );
   };
 
   handleDeleteRow = (rowId) => {
@@ -47,6 +59,9 @@ export default class Shop extends React.Component {
             })}
           </tbody>
         </table>
+        {this.state.selectedRowId > 0 && (
+          <GoodCardDisplay goodDetails={this.state.selectedGood} />
+        )}
       </div>
     );
   }
