@@ -32,6 +32,8 @@ export default class Shop extends React.Component {
     this.setState({ goodsList: filteredList });
   };
 
+  handleProductAdd = () => {};
+
   render() {
     return (
       <div>
@@ -59,6 +61,11 @@ export default class Shop extends React.Component {
             })}
           </tbody>
         </table>
+        <input
+          type="button"
+          value="New product"
+          onClick={this.handleProductAdd}
+        />
         {this.state.selectedRowId > 0 && (
           <GoodCardDisplay goodDetails={this.state.selectedGood} />
         )}
