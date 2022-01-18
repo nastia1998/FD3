@@ -35,13 +35,27 @@ export default class Shop extends React.Component {
     this.setState({ goodsList: filteredList, handleMode: 0 });
   };
 
-  handleEditRow = () => {
-    console.log("handle Edit row");
-    this.setState({ handleMode: 2 });
+  handleEditRow = (rowId) => {
+    this.setState({ handleMode: 2 }, () => {
+      let good = this.state.goodsList.find((good) => {
+        return good.inventoryNumber === +rowId;
+      });
+      this.setState({ selectedGood: good }, () => {
+        console.log(this.state.selectedGood);
+      });
+    });
   };
 
   handleProductAdd = () => {
     this.setState({ handleMode: 2 });
+  };
+
+  handleSaveItem = (itemDetails) => {
+    itemDetails.inventoryNumber =
+      this.state.goodsList[this.state.goodsList.length - 1].inventoryNumber + 1;
+    this.setState((state) => ({
+      goodsList: [...state.goodsList, itemDetails],
+    }));
   };
 
   render() {
@@ -72,15 +86,23 @@ export default class Shop extends React.Component {
             })}
           </tbody>
         </table>
-        <input
-          type="button"
-          value="New product"
-          onClick={this.handleProductAdd}
-        />
+        {this.state.handleMode !== 2 && (
+          <input
+            type="button"
+            value="New product"
+            onClick={this.handleProductAdd}
+          />
+        )}
+
         {this.state.handleMode === 1 && (
           <GoodCardDisplay goodDetails={this.state.selectedGood} />
         )}
-        {this.state.handleMode === 2 && <GoodCardEdit />}
+        {this.state.handleMode === 2 && (
+          <GoodCardEdit
+            goodDetails={this.state.selectedGood}
+            handleSaveItem={this.handleSaveItem}
+          />
+        )}
       </div>
     );
   }

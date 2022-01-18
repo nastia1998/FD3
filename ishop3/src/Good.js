@@ -14,7 +14,7 @@ export default class Good extends Component {
 
   handleEditItem = (e) => {
     e.stopPropagation();
-    this.props.handleEditRow();
+    this.props.handleEditRow(this.props.goodInfo.inventoryNumber);
   };
 
   render() {
