@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 class GoodCardEdit extends Component {
   state = {
-    goodDetails: this.props.goodDetails,
+    goodDetails: this.props.handleMode === 2 && this.props.goodDetails,
   };
 
   handleNameChange = (e) => {

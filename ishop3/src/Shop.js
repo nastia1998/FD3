@@ -45,7 +45,7 @@ class Shop extends React.Component {
   };
 
   handleProductAdd = () => {
-    this.setState({ handleMode: 2 });
+    this.setState({ handleMode: 3 });
   };
 
   handleSaveItem = (itemDetails) => {
@@ -115,6 +115,7 @@ class Shop extends React.Component {
         {(this.state.handleMode === 2 || this.state.handleMode === 3) && (
           <GoodCardEdit
             key={this.state.selectedGood.inventoryNumber}
+            handleMode={this.state.handleMode}
             goodDetails={this.state.selectedGood}
             handleSaveItem={this.handleSaveItem}
             handleCancelSave={this.handleCancelSave}
