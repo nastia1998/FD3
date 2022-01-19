@@ -4,7 +4,8 @@ import "./Good.css";
 
 export default class Good extends Component {
   handleSelectItem = () => {
-    this.props.setSelectedRowId(this.props.goodInfo.inventoryNumber);
+    this.props.handleMode !== 3 &&
+      this.props.setSelectedRowId(this.props.goodInfo.inventoryNumber);
   };
 
   handleRemoveItem = (e) => {

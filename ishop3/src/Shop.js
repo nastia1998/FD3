@@ -32,7 +32,7 @@ class Shop extends React.Component {
     let filteredList = this.state.goodsList.filter(
       (good) => good.inventoryNumber !== +rowId
     );
-    this.setState({ goodsList: filteredList, handleMode: 0 });
+    this.setState({ goodsList: filteredList, handleMode: 0, selectedRowId: 0 });
   };
 
   handleEditRow = (rowId) => {
@@ -40,7 +40,7 @@ class Shop extends React.Component {
       let good = this.state.goodsList.find((good) => {
         return good.inventoryNumber === +rowId;
       });
-      this.setState({ selectedGood: good });
+      this.setState({ selectedGood: good, selectedRowId: rowId });
     });
   };
 
@@ -57,20 +57,20 @@ class Shop extends React.Component {
         }
         return good;
       });
-      this.setState({ goodsList: goodsResultList, handleMode: 0 });
+      this.setState({ goodsList: goodsResultList });
     } else if (this.state.handleMode === 3) {
       itemDetails.inventoryNumber =
         this.state.goodsList[this.state.goodsList.length - 1].inventoryNumber +
         1;
       this.setState((state) => ({
         goodsList: [...state.goodsList, itemDetails],
-        handleMode: 0,
       }));
     }
+    this.setState({ handleMode: 0, selectedRowId: 0 });
   };
 
   handleCancelSave = () => {
-    this.setState({ handleMode: 0 });
+    this.setState({ handleMode: 0, selectedRowId: 0 });
   };
 
   render() {
@@ -91,6 +91,7 @@ class Shop extends React.Component {
               return (
                 <Good
                   key={good.inventoryNumber}
+                  handleMode={this.state.handleMode}
                   goodInfo={good}
                   selectedRowId={this.state.selectedRowId}
                   setSelectedRowId={this.setSelectedRowId}
