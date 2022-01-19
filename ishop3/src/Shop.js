@@ -10,7 +10,7 @@ class Shop extends React.Component {
     selectedRowId: 0,
     goodsList: this.props.goodsList,
     selectedGood: {},
-    handleMode: 0, // 0 - nothing, 1 - display, 2 - edit/new
+    handleMode: 0, // 0 - nothing, 1 - display, 2 - edit, 3 - new
   };
 
   setSelectedRowId = (selectedRowId) => {
@@ -49,11 +49,24 @@ class Shop extends React.Component {
   };
 
   handleSaveItem = (itemDetails) => {
-    itemDetails.inventoryNumber =
-      this.state.goodsList[this.state.goodsList.length - 1].inventoryNumber + 1;
-    this.setState((state) => ({
-      goodsList: [...state.goodsList, itemDetails],
-    }));
+    if (this.state.handleMode === 2) {
+      let goods = this.state.goodsList.slice();
+      let goodsResultList = goods.map((good) => {
+        if (good.inventoryNumber === itemDetails.inventoryNumber) {
+          good = itemDetails;
+        }
+        return good;
+      });
+      this.setState({ goodsList: goodsResultList, handleMode: 0 });
+    } else if (this.state.handleMode === 3) {
+      itemDetails.inventoryNumber =
+        this.state.goodsList[this.state.goodsList.length - 1].inventoryNumber +
+        1;
+      this.setState((state) => ({
+        goodsList: [...state.goodsList, itemDetails],
+        handleMode: 0,
+      }));
+    }
   };
 
   handleCancelSave = () => {
@@ -99,7 +112,7 @@ class Shop extends React.Component {
         {this.state.handleMode === 1 && (
           <GoodCardDisplay goodDetails={this.state.selectedGood} />
         )}
-        {this.state.handleMode === 2 && (
+        {(this.state.handleMode === 2 || this.state.handleMode === 3) && (
           <GoodCardEdit
             key={this.state.selectedGood.inventoryNumber}
             goodDetails={this.state.selectedGood}

@@ -41,7 +41,7 @@ class GoodCardEdit extends Component {
     }));
   };
 
-  handleSave = () => {
+  handleSaveItem = () => {
     this.props.handleSaveItem(this.state.goodDetails);
   };
 
@@ -55,32 +55,32 @@ class GoodCardEdit extends Component {
         <b>Name: </b>
         <input
           type="text"
-          value={this.state.goodDetails.name}
+          value={this.state.goodDetails.name || ""}
           onChange={this.handleNameChange}
         />
         <br />
         <b>Price: </b>
         <input
           type="text"
-          value={this.state.goodDetails.price}
+          value={this.state.goodDetails.price || ""}
           onChange={this.handlePriceChange}
         />{" "}
         <br />
         <b>URL: </b>
         <input
           type="text"
-          value={this.state.goodDetails.url}
+          value={this.state.goodDetails.url || ""}
           onChange={this.handleUrlChange}
         />{" "}
         <br />
         <b>Quantity: </b>
         <input
           type="text"
-          value={this.state.goodDetails.quantity}
+          value={this.state.goodDetails.quantity || ""}
           onChange={this.handleQuanityChange}
         />{" "}
         <br />
-        <input type="button" value="Save" onClick={this.handleSave} />
+        <input type="button" value="Save" onClick={this.handleSaveItem} />
         <input type="button" value="Cancel" onClick={this.handleCancel} />
       </div>
     );
