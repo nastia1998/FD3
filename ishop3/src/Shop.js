@@ -45,7 +45,7 @@ class Shop extends React.Component {
   };
 
   handleProductAdd = () => {
-    this.setState({ handleMode: 3 });
+    this.setState({ handleMode: 3, selectedRowId: "" });
   };
 
   handleSaveItem = (itemDetails) => {
