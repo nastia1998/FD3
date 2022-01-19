@@ -5,7 +5,7 @@ import GoodCardDisplay from "./GoodCardDisplay";
 import GoodCardEdit from "./GoodCardEdit";
 import PropTypes from "prop-types";
 
-export default class Shop extends React.Component {
+class Shop extends React.Component {
   state = {
     selectedRowId: 0,
     goodsList: this.props.goodsList,
@@ -40,9 +40,7 @@ export default class Shop extends React.Component {
       let good = this.state.goodsList.find((good) => {
         return good.inventoryNumber === +rowId;
       });
-      this.setState({ selectedGood: good }, () => {
-        console.log(this.state.selectedGood);
-      });
+      this.setState({ selectedGood: good });
     });
   };
 
@@ -99,6 +97,7 @@ export default class Shop extends React.Component {
         )}
         {this.state.handleMode === 2 && (
           <GoodCardEdit
+            key={this.state.selectedGood.inventoryNumber}
             goodDetails={this.state.selectedGood}
             handleSaveItem={this.handleSaveItem}
           />
@@ -107,6 +106,8 @@ export default class Shop extends React.Component {
     );
   }
 }
+
+export default Shop;
 
 Good.propTypes = {
   goodsList: PropTypes.object,
