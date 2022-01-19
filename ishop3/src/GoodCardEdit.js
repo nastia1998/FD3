@@ -45,7 +45,9 @@ class GoodCardEdit extends Component {
     this.props.handleSaveItem(this.state.goodDetails);
   };
 
-  handleCancel = () => {};
+  handleCancel = () => {
+    this.props.handleCancelSave();
+  };
 
   render() {
     return (

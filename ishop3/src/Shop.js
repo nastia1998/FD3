@@ -56,6 +56,10 @@ class Shop extends React.Component {
     }));
   };
 
+  handleCancelSave = () => {
+    this.setState({ handleMode: 0 });
+  };
+
   render() {
     return (
       <div>
@@ -100,6 +104,7 @@ class Shop extends React.Component {
             key={this.state.selectedGood.inventoryNumber}
             goodDetails={this.state.selectedGood}
             handleSaveItem={this.handleSaveItem}
+            handleCancelSave={this.handleCancelSave}
           />
         )}
       </div>
