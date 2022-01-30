@@ -27,6 +27,13 @@ var Scales = /** @class */ (function () {
         });
         return overallScale;
     };
+    Scales.prototype.getNameList = function () {
+        var names = [];
+        this.products.map(function (product) {
+            names.push(product.name);
+        });
+        return names;
+    };
     return Scales;
 }());
 var Product = /** @class */ (function () {
@@ -63,18 +70,17 @@ var Cucumber = /** @class */ (function (_super) {
     }
     return Cucumber;
 }(Product));
-var apple = new Apple("apple1", 200);
-console.log(apple.getName());
-console.log(apple.getScale());
-var tomato = new Tomato("tomato1", 100);
-console.log(tomato.getName());
-console.log(tomato.getScale());
-var cucumber = new Cucumber("cucmber1", 250);
-console.log(cucumber.getName());
-console.log(cucumber.getScale());
+var apple1 = new Apple("apple1", 200);
+var apple2 = new Apple("apple2", 50);
+var tomato1 = new Tomato("tomato1", 100);
+var tomato2 = new Tomato("tomato2", 80);
+var cucumber = new Cucumber("cucumber1", 250);
 var scales = new Scales();
-scales.add(apple);
-scales.add(tomato);
+scales.add(apple1);
+scales.add(apple2);
+scales.add(tomato1);
+scales.add(tomato2);
 scales.add(cucumber);
 console.log(scales.getSumScale());
+console.log(scales.getNameList());
 //# sourceMappingURL=app.js.map

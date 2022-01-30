@@ -16,6 +16,14 @@ class Scales {
     });
     return overallScale;
   }
+
+  getNameList(): string[] {
+    let names: string[] = [];
+    this.products.map((product) => {
+      names.push(product.name);
+    });
+    return names;
+  }
 }
 
 class Product {
@@ -54,14 +62,19 @@ class Cucumber extends Product {
   }
 }
 
-let apple: Apple = new Apple("apple1", 200);
+let apple1: Apple = new Apple("apple1", 200);
+let apple2: Apple = new Apple("apple2", 50);
 
-let tomato: Tomato = new Tomato("tomato1", 100);
+let tomato1: Tomato = new Tomato("tomato1", 100);
+let tomato2: Tomato = new Tomato("tomato2", 80);
 
-let cucumber: Cucumber = new Cucumber("cucmber1", 250);
+let cucumber: Cucumber = new Cucumber("cucumber1", 250);
 
 let scales: Scales = new Scales();
-scales.add(apple);
-scales.add(tomato);
+scales.add(apple1);
+scales.add(apple2);
+scales.add(tomato1);
+scales.add(tomato2);
 scales.add(cucumber);
 console.log(scales.getSumScale());
+console.log(scales.getNameList());
