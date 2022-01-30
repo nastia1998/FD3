@@ -15,6 +15,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var Scales = /** @class */ (function () {
     function Scales() {
+        this.products = [];
     }
     Scales.prototype.add = function (product) {
         this.products.push(product);
@@ -71,4 +72,9 @@ console.log(tomato.getScale());
 var cucumber = new Cucumber("cucmber1", 250);
 console.log(cucumber.getName());
 console.log(cucumber.getScale());
+var scales = new Scales();
+scales.add(apple);
+scales.add(tomato);
+scales.add(cucumber);
+console.log(scales.getSumScale());
 //# sourceMappingURL=app.js.map

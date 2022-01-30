@@ -1,6 +1,10 @@
 class Scales {
   products: Product[];
 
+  constructor() {
+    this.products = [];
+  }
+
   add(product: Product): void {
     this.products.push(product);
   }
@@ -51,13 +55,13 @@ class Cucumber extends Product {
 }
 
 let apple: Apple = new Apple("apple1", 200);
-console.log(apple.getName());
-console.log(apple.getScale());
 
 let tomato: Tomato = new Tomato("tomato1", 100);
-console.log(tomato.getName());
-console.log(tomato.getScale());
 
 let cucumber: Cucumber = new Cucumber("cucmber1", 250);
-console.log(cucumber.getName());
-console.log(cucumber.getScale());
+
+let scales: Scales = new Scales();
+scales.add(apple);
+scales.add(tomato);
+scales.add(cucumber);
+console.log(scales.getSumScale());
