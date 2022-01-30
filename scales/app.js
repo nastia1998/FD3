@@ -16,32 +16,59 @@ var __extends = (this && this.__extends) || (function () {
 var Scales = /** @class */ (function () {
     function Scales() {
     }
+    Scales.prototype.add = function (product) {
+        this.products.push(product);
+    };
+    Scales.prototype.getSumScale = function () {
+        var overallScale = 0;
+        this.products.map(function (product) {
+            overallScale += product.scale;
+        });
+        return overallScale;
+    };
     return Scales;
 }());
 var Product = /** @class */ (function () {
-    function Product() {
+    function Product(_name, _scale) {
+        this.name = _name;
+        this.scale = _scale;
     }
+    Product.prototype.getScale = function () {
+        return this.scale;
+    };
+    Product.prototype.getName = function () {
+        return this.name;
+    };
     return Product;
 }());
 var Apple = /** @class */ (function (_super) {
     __extends(Apple, _super);
-    function Apple() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    function Apple(_name, _scale) {
+        return _super.call(this, _name, _scale) || this;
     }
     return Apple;
 }(Product));
 var Tomato = /** @class */ (function (_super) {
     __extends(Tomato, _super);
-    function Tomato() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    function Tomato(_name, _scale) {
+        return _super.call(this, _name, _scale) || this;
     }
     return Tomato;
 }(Product));
 var Cucumber = /** @class */ (function (_super) {
     __extends(Cucumber, _super);
-    function Cucumber() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    function Cucumber(_name, _scale) {
+        return _super.call(this, _name, _scale) || this;
     }
     return Cucumber;
 }(Product));
+var apple = new Apple("apple1", 200);
+console.log(apple.getName());
+console.log(apple.getScale());
+var tomato = new Tomato("tomato1", 100);
+console.log(tomato.getName());
+console.log(tomato.getScale());
+var cucumber = new Cucumber("cucmber1", 250);
+console.log(cucumber.getName());
+console.log(cucumber.getScale());
 //# sourceMappingURL=app.js.map
