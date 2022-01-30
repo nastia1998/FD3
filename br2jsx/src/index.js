@@ -4,9 +4,11 @@ import "./index.css";
 import BR2JSX from "./BR2JSX";
 import reportWebVitals from "./reportWebVitals";
 
+let text = "первый<BR/>второй<br/>третий<br />последний";
+
 ReactDOM.render(
   <React.StrictMode>
-    <BR2JSX />
+    <BR2JSX text={text} />
   </React.StrictMode>,
   document.getElementById("root")
 );

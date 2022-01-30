@@ -1,7 +1,16 @@
 import "./BR2JSX.css";
 
-function BR2JSX() {
-  return <div>Hello</div>;
-}
+const BR2JSX = (props) => {
+  const regex = /<br *\/?>/i;
+  let words = props.text.split(regex);
+  let parts = [];
+  words.forEach((word, i) => {
+    if (i) {
+      parts.push(<br />);
+    }
+    parts.push(word);
+  });
+  return <div>{parts}</div>;
+};
 
 export default BR2JSX;
