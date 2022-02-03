@@ -19,7 +19,7 @@ class Scales {
 
   getNameList(): string[] {
     let names: string[] = [];
-    this.products.map((product) => {
+    this.products.map((product: Product) => {
       names.push(product.name);
     });
     return names;
