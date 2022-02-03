@@ -6,7 +6,7 @@ const BR2JSX = (props) => {
   let parts = [];
   words.forEach((word, i) => {
     if (i) {
-      parts.push(<br />);
+      parts.push(<br key={i} />);
     }
     parts.push(word);
   });
