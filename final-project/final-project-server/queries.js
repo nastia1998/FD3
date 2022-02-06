@@ -86,10 +86,25 @@ const deleteUser = (request, response) => {
   );
 };
 
+// GET all categories
+const getCategories = (request, response) => {
+  client.query(
+    "SELECT * FROM categories ORDER BY category_id ASC",
+    (error, results) => {
+      if (error) {
+        console.log(error);
+        throw error;
+      }
+      response.status(200).json(results.rows);
+    }
+  );
+};
+
 module.exports = {
   getUsers,
   getUserById,
   createUser,
   updateUser,
   deleteUser,
+  getCategories,
 };

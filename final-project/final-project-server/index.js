@@ -2,10 +2,12 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const db = require("./queries");
 const app = express();
+const cors = require("cors");
 
 const port = 3001;
 
 app.use(bodyParser.json());
+app.use(cors());
 app.use(
   bodyParser.urlencoded({
     extended: true,
@@ -21,5 +23,7 @@ app.get("/users/:id", db.getUserById);
 app.post("/users", db.createUser);
 app.put("/users/:id", db.updateUser);
 app.delete("/users/:id", db.deleteUser);
+
+app.get("/categories", db.getCategories);
 
 app.listen(port, () => console.log(`App listening on port ${port}`));
